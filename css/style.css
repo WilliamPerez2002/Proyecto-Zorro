@@ -11,8 +11,12 @@ body{
     align-items: center;
 }
 
+.start{ 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 
-.contenedor {
     width: 1200px;
     height: 280px;
     margin: 0 auto;
@@ -20,6 +24,26 @@ body{
     position: relative;
 
     background: linear-gradient(#b7d6c7, transparent) #ffe2d1;/*linear-gradient(#90ebff, white);*/
+    transition: background-color 1s linear;
+    overflow: hidden;
+
+    text-align: center;
+    color: #7e928b;
+    font-size: 30px;
+    font-family: 'Press Start 2P', monospace;
+    font-weight: 700;
+}
+
+.contenedor {
+    display: none;
+    
+    width: 1200px;
+    height: 280px;
+    margin: 0 auto;
+    
+    position: relative;
+
+    background: linear-gradient(#080bd4, transparent) #b1a0e0;/*linear-gradient(#90ebff, white);*/
     transition: background-color 1s linear;
     overflow: hidden;
 }
@@ -52,7 +76,7 @@ body{
 }
 
 .dino-corriendo {
-    animation: animarDino 0.10s steps(2) infinite;
+    animation: animarDino 0.20s steps(2) infinite;
 }
 .dino-estrellado {
     background-position-x: -252px;
