@@ -48,8 +48,8 @@ var parado = false;
 var saltando = false;
 
 var tiempoHastaObstaculo = 2;
-var tiempoObstaculoMin = 0.7;
-var tiempoObstaculoMax = 1.8;
+var tiempoObstaculoMin = 0.3;
+var tiempoObstaculoMax = 1.5;
 var obstaculoPosY = 16;
 var obstaculos = [];
 
@@ -81,6 +81,7 @@ function Start() {
     crearDino();
     dino = document.querySelector(".dino");
     document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("keydown", agachar);
     
     contenedor.style.display = "block";
     comenzar.style.display = "none";
@@ -101,7 +102,7 @@ function Update() {
 
     velY -= gravedad * deltaTime;
 
-    ganarPuntos();
+    ganarPuntos(false);
     
 }
 
@@ -110,6 +111,15 @@ function handleKeyDown(ev){
         saltar();
     }
 }
+
+function agachar(ev){
+    if(ev.keyCode == 40){
+       console.log("agachar");
+    }
+
+}
+
+
 
 function saltar(){
     if(dinoPosY === sueloY){
@@ -187,7 +197,7 @@ function crearObstaculo() {
     var obstaculo = document.createElement("div");
     contenedor.appendChild(obstaculo);
     obstaculo.classList.add("cactus");
-    if(Math.random() > 0.5) obstaculo.classList.add("cactus2");
+    if(Math.random() > 0.3) obstaculo.classList.add("cactus2");
     obstaculo.posX = contenedor.clientWidth;
     obstaculo.style.left = contenedor.clientWidth+"px";
 
@@ -212,6 +222,8 @@ function moverObstaculos() {
         if(obstaculos[i].posX < -obstaculos[i].clientWidth) {
             obstaculos[i].parentNode.removeChild(obstaculos[i]);
             obstaculos.splice(i, 1);
+            ganarPuntos(true);
+            
             
         }else{
             obstaculos[i].posX -= calcularDesplazamiento();
@@ -232,11 +244,11 @@ function moverNubes() {
     }
 }
 
-function ganarPuntos() {
+function ganarPuntos(directo) {
 
     subScore += 1;
 
-    if(subScore % 90 == 0){
+    if(subScore % 90 == 0 || directo){
 
         score = parseInt(score+1);
     }
